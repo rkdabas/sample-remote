@@ -14,9 +14,9 @@ if "TAVILY_API_KEY" not in os.environ:
 tavily_api_key = os.getenv("TAVILY_API_KEY")
 tavily_client = TavilyClient(tavily_api_key)
 
-
+PORT = os.environ.get("PORT", 10000)
 # initialize the mcp server
-mcp = FastMCP("Web search", host="0.0.0.0", port=8000)
+mcp = FastMCP("Web search", host="0.0.0.0", port=PORT)
 
 
 # define the web search tool
