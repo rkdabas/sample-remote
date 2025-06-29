@@ -1,41 +1,41 @@
 from fastmcp import FastMCP
-from tavily import TavilyClient
-from dotenv import load_dotenv
+# from tavily import TavilyClient
+# from dotenv import load_dotenv
 from typing import List, Dict
 import os
 
 
 # API related setup
-load_dotenv()
+# load_dotenv()
 
-if "TAVILY_API_KEY" not in os.environ:
-    raise Exception("TAVILY_API_KEY is not set")
+# if "TAVILY_API_KEY" not in os.environ:
+#     raise Exception("TAVILY_API_KEY is not set")
 
-tavily_api_key = os.getenv("TAVILY_API_KEY")
-tavily_client = TavilyClient(tavily_api_key)
+# tavily_api_key = os.getenv("TAVILY_API_KEY")
+# tavily_client = TavilyClient(tavily_api_key)
 
 PORT = os.environ.get("PORT", 10000)
 # initialize the mcp server
-mcp = FastMCP("Web search", host="0.0.0.0", port=PORT)
+mcp = FastMCP("Add two numbers", host="0.0.0.0", port=PORT)
 
 
 # define the web search tool
 @mcp.tool(description="add two numbers")
-def web_search(query:str)->List[Dict]:
+def add(a:int, b:int)->int:
     """
-    Use this tool to search the web for the given query
+    Use this tool to add two numbers
 
     Args:
-    query: The search query
+    a: The first number
+    b: The second number
 
     Returns:
-    the search results
+    the sum of the two numbers
     """
     try:
-        results = tavily_client.search(query)
-        return results["results"]
+        return a + b
     except Exception as e:
-        return f"Error searching the web: {e}"
+        return f"Error adding the numbers: {e}"
 
     
 # run the mcp server
